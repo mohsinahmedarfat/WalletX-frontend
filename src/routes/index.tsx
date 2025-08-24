@@ -1,8 +1,18 @@
 import App from "@/App";
-import AdminLayout from "@/components/layouts/AdminLayout";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import About from "@/pages/About";
-import Analytics from "@/pages/admin/Analytics";
-import { createBrowserRouter } from "react-router";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { createBrowserRouter, Navigate } from "react-router";
+import { adminSidebarItems } from "./AdminSidebarItems";
+import { userSidebarItems } from "./UserSidebarItems";
+import { agentSidebarItems } from "./AgentSidebarItems";
+import { withAuth } from "@/utils/withAuth";
+import { role } from "@/constants/role";
+import type { TRole } from "@/types";
+import Unauthorized from "@/pages/Unauthorized";
 
 const router = createBrowserRouter([
   {
@@ -10,20 +20,51 @@ const router = createBrowserRouter([
     Component: App,
     children: [
       {
+        index: true,
+        Component: Home,
+      },
+      {
         path: "about",
-        Component: About,
+        Component: withAuth(About),
       },
     ],
   },
   {
+    Component: withAuth(DashboardLayout, role.admin as TRole),
     path: "/admin",
-    Component: AdminLayout,
     children: [
-      {
-        path: "analytics",
-        Component: Analytics,
-      },
+      { index: true, element: <Navigate to="/admin/analytics" /> },
+      ...generateRoutes(adminSidebarItems),
     ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.agent as TRole),
+    path: "/agent",
+    children: [
+      { index: true, element: <Navigate to="/agent/analytics" /> },
+      ...generateRoutes(agentSidebarItems),
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.user as TRole),
+    path: "/user",
+    children: [
+      { index: true, element: <Navigate to="/user/analytics" /> },
+      ...generateRoutes(userSidebarItems),
+    ],
+  },
+
+  {
+    Component: Register,
+    path: "/register",
+  },
+  {
+    Component: Login,
+    path: "/login",
+  },
+  {
+    Component: Unauthorized,
+    path: "/unauthorized",
   },
 ]);
 
