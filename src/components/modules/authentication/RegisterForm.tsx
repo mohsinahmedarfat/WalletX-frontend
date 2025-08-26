@@ -68,7 +68,7 @@ export function RegisterForm({
       const result = await register(userData).unwrap();
       console.log("result from register form", result);
       toast.success("User created successfully.");
-      navigate("/verify"); // After creating verify page, navigate there
+      navigate("/login"); // After creating verify page, navigate there
     } catch (error) {
       console.error("error from register form", error);
     }

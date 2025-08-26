@@ -27,3 +27,14 @@ export interface IUser {
   role: TRole;
   isBlocked: boolean;
 }
+
+export type TTransactionType = "TOP_UP" | "WITHDRAW" | "SEND"
+
+export interface ITransaction {
+  _id?: string;
+  initiator: IUser;
+  recipient: IUser;
+  type: TTransactionType;
+  amount: number;
+  description?: string;
+}
