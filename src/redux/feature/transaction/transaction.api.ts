@@ -19,7 +19,4 @@ export const walletApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {
-    useAllTransactionsQuery,
-    useTransactionInfoQuery
-} = walletApi;
+export const { useAllTransactionsQuery, useTransactionInfoQuery } = walletApi;

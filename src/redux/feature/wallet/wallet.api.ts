@@ -9,6 +9,13 @@ export const walletApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => response.data,
     }),
+    sendMoney: builder.mutation({
+      query: ({receiverEmail, amountData}) => ({
+        url: `/wallet/send/${receiverEmail}`,
+        method: "PATCH",
+        data: amountData,
+      }),
+    }),
     // AgentAddMoney compo -> form: email, amount -> userDB: email => userId
     addMoney: builder.mutation({
       query: ({userId, walletData}) => ({
@@ -22,5 +29,6 @@ export const walletApi = baseApi.injectEndpoints({
 
 export const {
     useWalletInfoQuery,
+    useSendMoneyMutation,
     useAddMoneyMutation
 } = walletApi;
