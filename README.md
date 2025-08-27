@@ -59,7 +59,7 @@ src/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-repo/frontend.git
+git clone https://github.com/mohsinahmedarfat/B5-A6-Digital-Wallet-System-Management-Frontend.git
 cd frontend
 ```
 
