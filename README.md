@@ -24,7 +24,7 @@ This is the **frontend** of the project, built with **React (Vite + TypeScript)*
 
 ## 🚀 Live Demo
 
-🔗 **Live URL:** [https://b5-a6-digital-wallet-system-managem.vercel.app](https://b5-a6-digital-wallet-system-managem.vercel.app)
+🔗 **Live URL:** [https://digital-wallet-system-management.vercel.app](https://digital-wallet-system-management.vercel.app)
 
 ---
 
