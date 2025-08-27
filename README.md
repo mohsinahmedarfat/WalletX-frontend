@@ -1,69 +1,95 @@
-# React + TypeScript + Vite
+# 🚀 Digital Wallet System Management - with Role Based Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **frontend** of the project, built with **React (Vite + TypeScript)**,  
+**Redux Toolkit Query** for state management, and **Shadcn/UI + TailwindCSS** for UI components.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Project Overview
 
-## Expanding the ESLint configuration
+- 🔐 **Role-based dashboard** for admins & users
+- 📊 **Admin Analytics** with:
+  - Total users
+  - Total agents
+  - Transaction count
+  - Transaction volume
+- 💳 **Transactions Management**
+  - Paginated transaction list
+  - Loading skeletons for better UX
+  - User-specific transaction history
+- 🎨 **Modern UI** with TailwindCSS + Shadcn UI
+- ⚡ Optimized API requests with **Redux Toolkit Query**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Live Demo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+🔗 **Live URL:** [https://b5-a6-digital-wallet-system-managem.vercel.app](https://b5-a6-digital-wallet-system-managem.vercel.app)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🛠️ Technology Stack
+
+- **React 18 + Vite** → Fast build tool and modern React setup
+- **TypeScript** → Strong typing for better developer experience
+- **Redux Toolkit Query (RTKQ)** → Data fetching, caching, and global state
+- **TailwindCSS** → Utility-first CSS framework
+- **Shadcn UI** → Accessible and customizable UI components
+- **Sonner Toasts** → Notification system
+
+---
+
+## 📂 Folder Structure
+
+```bash
+src/
+├── components/       # Reusable UI components
+│   └── ui/           # Shadcn components
+├── pages/            # Page components (AdminAnalytics, Transactions, etc.)
+├── redux/            # Redux Toolkit setup
+│   ├── baseApi.ts    # RTK Query base API
+│   └── feature/      # API slices & reducers
+├── types/            # TypeScript interfaces
+├── App.tsx           # Root component
+└── main.tsx          # Entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Setup Instructions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1️⃣ Clone the Repository
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/your-repo/frontend.git
+cd frontend
+```
+
+### 2️⃣ Install Dependencies
+
+npm/yarn/pnpm:
+
+```bash
+npm install
+# or yarn install
+# or pnpm install
+```
+
+### 3️⃣ Environment Variables
+
+Create a .env file in the project root:
+
+```bash
+Create a .env file in the project root:
+```
+
+### 4️⃣ Start Development Server
+
+```bash
+npm run dev
+```
+
+### 5️⃣ Build for Production
+
+```bash
+bun build
+
 ```
