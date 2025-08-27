@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
+import type { IWallet } from "@/types";
 
 export const walletApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -42,12 +43,69 @@ export const walletApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["TRANSACTION"],
     }),
+    blockWallet: builder.mutation({
+      query: ({ userId, statusData }) => ({
+        url: `/wallet/status/${userId}`,
+        method: "PATCH",
+        data: statusData,
+      }),
+      invalidatesTags: ["WALLET"],
+      async onQueryStarted(
+        { userId, statusData },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          walletApi.util.updateQueryData("allWallets", undefined, (draft) => {
+            const wallet = draft.find((w: IWallet) => w.user._id === userId);
+            if (wallet) {
+              wallet.status = statusData.status;
+            }
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
+
+    // blockUser: builder.mutation({
+    //   query: ({ userId, statusData }) => ({
+    //     url: `/user/status/${userId}`,
+    //     method: "PATCH",
+    //     data: statusData,
+    //   }),
+    //   invalidatesTags: ["USERS"],
+    //   async onQueryStarted(
+    //     { userId, statusData },
+    //     { dispatch, queryFulfilled }
+    //   ) {
+    //     const patchResult = dispatch(
+    //       authApi.util.updateQueryData("allUsers", undefined, (draft) => {
+    //         const user = draft.find((u: IUser) => u._id === userId);
+    //         if (user) {
+    //           user.isBlocked = statusData.isBlocked;
+    //         }
+    //       })
+    //     );
+
+    //     try {
+    //       await queryFulfilled;
+    //     } catch {
+    //       patchResult.undo();
+    //     }
+    //   },
+    // }),
   }),
 });
 
 export const {
+  useAllWalletsQuery,
   useWalletInfoQuery,
   useSendMoneyMutation,
   useAddMoneyMutation,
   useWithdrawMoneyMutation,
+  useBlockWalletMutation,
 } = walletApi;

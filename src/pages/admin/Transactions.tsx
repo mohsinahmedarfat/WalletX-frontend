@@ -11,8 +11,19 @@ import {
 import { Button } from "@/components/ui/button";
 import type { ITransaction } from "@/types";
 
+// Skeleton row: 6 columns with pulsating grey boxes
+const SkeletonRow = () => (
+  <TableRow>
+    {[...Array(6)].map((_, idx) => (
+      <TableCell key={idx}>
+        <div className="h-4 bg-gray-300 rounded animate-pulse w-full" />
+      </TableCell>
+    ))}
+  </TableRow>
+);
+
 const Transactions = () => {
-  const { data: transactions = [] } = useAllTransactionsQuery(undefined);
+  const { data: transactions = [], isLoading } = useAllTransactionsQuery(undefined);
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -40,27 +51,29 @@ const Transactions = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedTransactions.map(
-              (transaction: ITransaction, index: number) => (
-                <TableRow className="*:text-left" key={transaction._id}>
-                  <TableCell className="font-medium">
-                    {(page - 1) * pageSize + index + 1}
-                  </TableCell>
-                  <TableCell>{transaction.initiator?.email}</TableCell>
-                  <TableCell>{transaction.recipient?.email}</TableCell>
-                  <TableCell>{transaction.type}</TableCell>
-                  <TableCell>{transaction.amount}</TableCell>
-                  <TableCell>
-                    {new Date(transaction.createdAt).toLocaleString(undefined, {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    })}
-                  </TableCell>
-                </TableRow>
-              )
-            )}
+            {isLoading
+              ? [...Array(pageSize)].map((_, idx) => <SkeletonRow key={idx} />)
+              : paginatedTransactions.map(
+                  (transaction: ITransaction, index: number) => (
+                    <TableRow className="*:text-left" key={transaction._id}>
+                      <TableCell className="font-medium">
+                        {(page - 1) * pageSize + index + 1}
+                      </TableCell>
+                      <TableCell>{transaction.initiator?.email}</TableCell>
+                      <TableCell>{transaction.recipient?.email}</TableCell>
+                      <TableCell>{transaction.type}</TableCell>
+                      <TableCell>{transaction.amount}</TableCell>
+                      <TableCell>
+                        {new Date(transaction.createdAt).toLocaleString(undefined, {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  )
+                )}
 
-            {paginatedTransactions.length === 0 && (
+            {!isLoading && paginatedTransactions.length === 0 && (
               <TableRow>
                 <TableCell colSpan={6} className="text-center py-4">
                   No transactions found

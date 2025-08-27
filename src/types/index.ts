@@ -39,3 +39,14 @@ export interface ITransaction {
   createdAt: string;
   description?: string;
 }
+
+export type IWalletStatus = "ACTIVE" | "BLOCKED"
+
+export interface IWallet {
+  _id?: string;
+  user: IUser;
+  status: IWalletStatus;
+  balance: number;
+  createdAt: string;
+  description?: string;
+}

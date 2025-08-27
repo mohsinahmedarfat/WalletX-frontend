@@ -33,7 +33,7 @@ const ManageUsers = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-4">Manage Agents</h1>
+      <h1 className="text-xl font-bold mb-4">Manage All Users</h1>
       <div className="border border-muted rounded-md">
         <Table>
           <TableHeader>
