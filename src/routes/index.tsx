@@ -13,6 +13,8 @@ import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
 import type { TRole } from "@/types";
 import Unauthorized from "@/pages/Unauthorized";
+import Contact from "@/pages/Contact";
+import Pricing from "@/pages/Pricing";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,15 @@ const router = createBrowserRouter([
       },
       {
         path: "about",
-        Component: withAuth(About),
+        Component: About,
+      },
+      {
+        path: "contact",
+        Component: Contact,
+      },
+      {
+        path: "pricing",
+        Component: Pricing,
       },
     ],
   },

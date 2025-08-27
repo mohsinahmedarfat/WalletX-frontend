@@ -10,37 +10,38 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useSendMoneyMutation } from "@/redux/feature/wallet/wallet.api";
+import { useWithdrawMoneyMutation } from "@/redux/feature/wallet/wallet.api";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSignIcon, Mail } from "lucide-react";
 
-const SendMoneyForm = ({
+const WithdrawMoneyForm = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   const form = useForm();
   const navigate = useNavigate();
-  const [sendMoney, { isLoading }] = useSendMoneyMutation();
+
+  const [withdrawMoney, { isLoading }] = useWithdrawMoneyMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Sending...");
+    const toastId = toast.loading("Withdrawing...");
 
     try {
-      const res = await sendMoney({
-        receiverEmail: data.email,
+      const res = await withdrawMoney({
+        userEmail: data.email,
         amountData: { amount: Number(data.amount) },
       }).unwrap();
 
       if (res.success) {
-        toast.success("Sent Successfully.", { id: toastId });
+        toast.success("Withdrawal Successfully.", { id: toastId });
       }
 
       navigate("/user/analytics");
     } catch (error: any) {
-      console.error("Failed to send money", error);
+      console.error("Failed to withdraw money", error);
       toast.error(`${error?.data?.message}`, { id: toastId });
     }
   };
@@ -48,7 +49,7 @@ const SendMoneyForm = ({
   return (
     <Card className={cn("max-w-md mx-auto shadow-lg border border-gray-200", className)} {...props}>
       <CardHeader className="text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-t-lg py-4">
-        <CardTitle className="text-2xl font-bold">Send Money</CardTitle>
+        <CardTitle className="text-2xl font-bold">Withdraw Money</CardTitle>
       </CardHeader>
       <CardContent className="px-6 py-4 flex flex-col gap-4">
         <Form {...form}>
@@ -104,7 +105,7 @@ const SendMoneyForm = ({
               className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Send Money"}
+              {isLoading ? "Withdrawing..." : "Withdraw Money"}
             </Button>
           </form>
         </Form>
@@ -113,4 +114,4 @@ const SendMoneyForm = ({
   );
 };
 
-export default SendMoneyForm;
+export default WithdrawMoneyForm;

@@ -36,5 +36,6 @@ export interface ITransaction {
   recipient: IUser;
   type: TTransactionType;
   amount: number;
+  createdAt: string;
   description?: string;
 }

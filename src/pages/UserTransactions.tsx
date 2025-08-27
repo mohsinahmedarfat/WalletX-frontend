@@ -9,9 +9,20 @@ import {
 } from "@/components/ui/table";
 import type { ITransaction } from "@/types";
 
+// Skeleton row component for loading state
+const SkeletonRow = () => (
+  <TableRow>
+    {[...Array(6)].map((_, idx) => (
+      <TableCell key={idx}>
+        <div className="h-4 bg-gray-300 rounded animate-pulse w-full" />
+      </TableCell>
+    ))}
+  </TableRow>
+);
+
 const UserTransactions = () => {
-  const { data: transactions } = useTransactionInfoQuery(undefined);
-  console.log("user transactions", transactions);
+  const { data: transactions, isLoading } = useTransactionInfoQuery(undefined);
+
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">Transactions</h1>
@@ -24,26 +35,34 @@ const UserTransactions = () => {
               <TableHead>Recipient</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Amount</TableHead>
+              <TableHead>Date/Time</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {transactions?.map((transaction: ITransaction, index: string) => (
-              <TableRow key={transaction._id}>
-                <TableCell className="text-left font-medium">
-                  {index + 1}
-                </TableCell>
-                <TableCell className="text-left">
-                  {transaction.initiator?.email}
-                </TableCell>
-                <TableCell className="text-left">
-                  {transaction.recipient?.email}
-                </TableCell>
-                <TableCell className="text-left">{transaction.type}</TableCell>
-                <TableCell className="text-left">
-                  {transaction.amount}
+            {isLoading
+              ? [...Array(5)].map((_, idx) => <SkeletonRow key={idx} />)
+              : transactions?.map((transaction: ITransaction, index: number) => (
+                  <TableRow className="*:text-left" key={transaction._id}>
+                    <TableCell className="font-medium">{index + 1}</TableCell>
+                    <TableCell>{transaction.initiator?.email}</TableCell>
+                    <TableCell>{transaction.recipient?.email}</TableCell>
+                    <TableCell>{transaction.type}</TableCell>
+                    <TableCell>{transaction.amount}</TableCell>
+                    <TableCell>
+                      {new Date(transaction.createdAt).toLocaleString(undefined, {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            {!isLoading && transactions?.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-4">
+                  No transactions found
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>

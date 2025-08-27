@@ -24,6 +24,8 @@ import { Link, useLocation } from "react-router";
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/pricing", label: "Pricing", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/agent", label: "Dashboard", role: role.agent },
   { href: "/user", label: "Dashboard", role: role.user },
@@ -43,7 +45,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b px-4 md:px-6">
+    <header className="sticky top-0 z-50 bg-background border-b px-4 md:px-6">
       <div className="flex h-16 justify-between gap-4">
         {/* Left side */}
         <div className="flex gap-2">

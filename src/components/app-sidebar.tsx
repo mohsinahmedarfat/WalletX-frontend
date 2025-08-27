@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { Link, useLocation } from "react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -13,19 +13,16 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Logo from "@/assets/icons/Logo";
-import { Link } from "react-router";
 import { useUserInfoQuery } from "@/redux/feature/auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
   const { data: userData } = useUserInfoQuery(undefined);
-  console.log("userData from app sidebar", userData);
+  const location = useLocation();
 
   const data = {
     navMain: getSidebarItems(userData?.data?.role),
   };
-
 
   return (
     <Sidebar {...props}>
@@ -35,19 +32,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+        {data.navMain.map((group) => (
+          <SidebarGroup key={group.title}>
+            <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link to={item.url}>{item.title}</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {group.items.map((item) => {
+                  const isActive = location.pathname === item.url;
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        className={
+                          isActive ? "bg-primary text-white rounded-md" : "hover:bg-primary-foreground rounded-md"
+                        }
+                      >
+                        <Link to={item.url}>{item.title}</Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
