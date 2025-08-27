@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import {
   Card,
   CardContent,
@@ -33,7 +33,6 @@ const FormSchema = z.object({
 });
 
 const Verify = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const email = location.state;
   console.log("location", location);

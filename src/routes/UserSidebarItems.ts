@@ -1,8 +1,7 @@
 import DashboardProfile from "@/pages/DashboardProfile";
-import UserDepositMoney from "@/pages/user/UserDepositMoney";
 import UserSendMoney from "@/pages/user/UserSendMoney";
-import UserTransactions from "@/pages/user/UserTransactions";
 import UserWithdrawMoney from "@/pages/user/UserWithdrawMoney";
+import UserTransactions from "@/pages/UserTransactions";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -31,11 +30,6 @@ export const userSidebarItems: ISidebarItem[] = [
         title: "Send Money",
         url: "/user/send-money",
         component: UserSendMoney,
-      },
-      {
-        title: "Deposit Money",
-        url: "/user/deposit-money",
-        component: UserDepositMoney,
       },
       {
         title: "Withdraw Money",

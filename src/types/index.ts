@@ -27,3 +27,26 @@ export interface IUser {
   role: TRole;
   isBlocked: boolean;
 }
+
+export type TTransactionType = "TOP_UP" | "WITHDRAW" | "SEND"
+
+export interface ITransaction {
+  _id?: string;
+  initiator: IUser;
+  recipient: IUser;
+  type: TTransactionType;
+  amount: number;
+  createdAt: string;
+  description?: string;
+}
+
+export type IWalletStatus = "ACTIVE" | "BLOCKED"
+
+export interface IWallet {
+  _id?: string;
+  user: IUser;
+  status: IWalletStatus;
+  balance: number;
+  createdAt: string;
+  description?: string;
+}

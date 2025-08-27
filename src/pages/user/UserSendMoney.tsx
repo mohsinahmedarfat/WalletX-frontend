@@ -1,7 +1,9 @@
+import SendMoneyForm from "@/components/modules/user/SendMoneyForm";
+
 const UserSendMoney = () => {
   return (
     <div>
-      <h1>This is UserSendMoney component</h1>
+      <SendMoneyForm />
     </div>
   );
 };

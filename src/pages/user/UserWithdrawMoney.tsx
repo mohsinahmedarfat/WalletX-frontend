@@ -1,7 +1,9 @@
+import WithdrawMoneyForm from "@/components/modules/user/WithdrawMoneyForm";
+
 const UserWithdrawMoney = () => {
   return (
     <div>
-      <h1>This is UserWithdrawMoney component</h1>
+      <WithdrawMoneyForm/>
     </div>
   );
 };
