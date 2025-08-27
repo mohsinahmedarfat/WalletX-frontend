@@ -10,25 +10,35 @@ export const walletApi = baseApi.injectEndpoints({
       transformResponse: (response) => response.data,
     }),
     sendMoney: builder.mutation({
-      query: ({receiverEmail, amountData}) => ({
+      query: ({ receiverEmail, amountData }) => ({
         url: `/wallet/send/${receiverEmail}`,
         method: "PATCH",
         data: amountData,
       }),
+      invalidatesTags: ["TRANSACTION"],
     }),
-    // AgentAddMoney compo -> form: email, amount -> userDB: email => userId
     addMoney: builder.mutation({
-      query: ({userId, walletData}) => ({
-        url: `/wallet/top-up/${userId}`,
+      query: ({ userEmail, amountData }) => ({
+        url: `/wallet/top-up/${userEmail}`,
         method: "PATCH",
-        data: walletData,
+        data: amountData,
       }),
+      invalidatesTags: ["TRANSACTION"],
+    }),
+    withdrawMoney: builder.mutation({
+      query: ({ userEmail, amountData }) => ({
+        url: `/wallet/withdraw/${userEmail}`,
+        method: "PATCH",
+        data: amountData,
+      }),
+      invalidatesTags: ["TRANSACTION"],
     }),
   }),
 });
 
 export const {
-    useWalletInfoQuery,
-    useSendMoneyMutation,
-    useAddMoneyMutation
+  useWalletInfoQuery,
+  useSendMoneyMutation,
+  useAddMoneyMutation,
+  useWithdrawMoneyMutation,
 } = walletApi;

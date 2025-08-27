@@ -1,9 +1,14 @@
+import { useWalletInfoQuery } from "@/redux/feature/wallet/wallet.api";
+
 const AgentAnalytics = () => {
-  return (
-    <div>
-      <h1>This is AgentAnalytics component</h1>
-    </div>
-  );
+  const { data } = useWalletInfoQuery(undefined);
+    console.log("wallet data", data);
+  
+    return (
+      <div>
+        <h1 className="text-xl font-bold">Wallet Balance: {data?.balance}</h1>
+      </div>
+    );
 };
 
 export default AgentAnalytics;

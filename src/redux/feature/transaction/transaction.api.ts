@@ -8,6 +8,7 @@ export const walletApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.data,
+      providesTags: ["TRANSACTION"],
     }),
     transactionInfo: builder.query({
       query: () => ({
@@ -15,6 +16,7 @@ export const walletApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.data,
+      providesTags: ["TRANSACTION"],
     }),
   }),
 });

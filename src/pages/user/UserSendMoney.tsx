@@ -1,9 +1,9 @@
-import SendMoneyForm from "@/components/modules/authentication/user/SendMoneyForm";
+import SendMoneyForm from "@/components/modules/user/SendMoneyForm";
 
 const UserSendMoney = () => {
   return (
     <div>
-      <SendMoneyForm/>
+      <SendMoneyForm />
     </div>
   );
 };

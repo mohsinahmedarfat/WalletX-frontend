@@ -9,31 +9,34 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useSendMoneyMutation } from "@/redux/feature/wallet/wallet.api";
+import { useAddMoneyMutation } from "@/redux/feature/wallet/wallet.api";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
-const SendMoneyForm = ({
+const AddMoneyForm = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   const form = useForm();
+  const navigate = useNavigate()
 
-  const [sendMoney, { isLoading }] = useSendMoneyMutation();
+  const [addMoney, { isLoading }] = useAddMoneyMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Sending...");
 
     try {
-      const res = await sendMoney({
-        receiverEmail: data.email,
+      const res = await addMoney({
+        userEmail: data.email,
         amountData: { amount: Number(data.amount) },
       }).unwrap();
 
-    if (res.success) {
+      if (res.success) {
         toast.success("Sent Successfully.", { id: toastId });
       }
       
+      navigate("/agent/transactions")
     } catch (error) {
       console.error("Failed to send money", error);
     }
@@ -42,7 +45,7 @@ const SendMoneyForm = ({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Send Money</h1>
+        <h1 className="text-2xl font-bold">Add Money</h1>
       </div>
       <div className="grid gap-6">
         <Form {...form}>
@@ -78,7 +81,6 @@ const SendMoneyForm = ({
                       <FormControl>
                         <Input
                           type="string"
-                          //   placeholder="100"
                           {...field}
                           value={field.value || ""}
                         />
@@ -100,4 +102,4 @@ const SendMoneyForm = ({
   );
 };
 
-export default SendMoneyForm;
+export default AddMoneyForm;

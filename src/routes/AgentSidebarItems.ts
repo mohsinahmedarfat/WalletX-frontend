@@ -1,7 +1,7 @@
 import AgentAddMoney from "@/pages/agent/AgentAddMoney";
-import AgentTransactions from "@/pages/agent/AgentTransactions";
 import AgentWithdrawMoney from "@/pages/agent/AgentWithdrawMoney";
 import DashboardProfile from "@/pages/DashboardProfile";
+import UserTransactions from "@/pages/UserTransactions";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -19,7 +19,7 @@ export const agentSidebarItems: ISidebarItem[] = [
       {
         title: "Transactions",
         url: "/agent/transactions",
-        component: AgentTransactions,
+        component: UserTransactions,
       },
     ],
   },
