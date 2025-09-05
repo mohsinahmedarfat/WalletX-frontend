@@ -1,4 +1,4 @@
-# 🚀 Digital Wallet System Management - with Role Based Dashboard
+# 🚀 WalletX - Digital Wallet System Management - with Role Based Dashboard
 
 This is the **frontend** of the project, built with **React (Vite + TypeScript)**,  
 **Redux Toolkit Query** for state management, and **Shadcn/UI + TailwindCSS** for UI components.

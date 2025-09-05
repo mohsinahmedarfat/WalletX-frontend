@@ -310,7 +310,7 @@ export default function Footer() {
         </div>
 
         <p className="text-xs text-gray-500">
-          &copy; 2025. Digital Wallet. All rights reserved.
+          &copy; 2025. WalletX. All rights reserved.
         </p>
       </div>
     </footer>
