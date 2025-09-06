@@ -1,6 +1,5 @@
-import type { ComponentType } from "react";
-
 export type { ILogin } from "./auth.type";
+import type { ComponentType, SVGProps } from "react";
 
 export interface IResponse<T> {
   statusCode: number;
@@ -50,3 +49,12 @@ export interface IWallet {
   createdAt: string;
   description?: string;
 }
+
+
+
+export type Service = {
+  title: string;
+  description: string;
+  category: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>; // store the component type
+};
