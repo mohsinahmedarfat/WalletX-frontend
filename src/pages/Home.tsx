@@ -1,3 +1,4 @@
+import CtaSection from "@/components/modules/home/CtaSection";
 import FaqSection from "@/components/modules/home/FaqSection";
 import FeaturesSection from "@/components/modules/home/FeaturesSection";
 import { HeroSection } from "@/components/modules/home/HeroSection";
@@ -13,6 +14,7 @@ const Home = () => {
       <PricingSection/>
       <TestimonialSection/>
       <PartnersSection/>
+      <CtaSection/>
       <FaqSection />
     </div>
   );
