@@ -5,6 +5,8 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   Popover,
@@ -20,12 +22,16 @@ import {
 import { useAppDispatch } from "@/redux/hook";
 import { Link, useLocation } from "react-router";
 
-// Navigation links array to be used in both desktop and mobile menus
+// Navigation links (6+)
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/pricing", label: "Pricing", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/support", label: "Support", role: "PUBLIC" },
+
+  // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/agent", label: "Dashboard", role: role.agent },
   { href: "/user", label: "Dashboard", role: role.user },
@@ -34,13 +40,12 @@ const navigationLinks = [
 export default function Navbar() {
   const { pathname } = useLocation();
   const { data } = useUserInfoQuery(undefined);
-  console.log("user data from navbar", data);
   const [logout] = useLogoutMutation();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
     const res = await logout(undefined);
-    dispatch(authApi.util.resetApiState())
+    dispatch(authApi.util.resetApiState());
     console.log("res", res);
   };
 
@@ -64,7 +69,6 @@ export default function Navbar() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M4 12L20 12"
@@ -81,9 +85,9 @@ export default function Navbar() {
                   </svg>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="w-36 p-1 md:hidden">
+              <PopoverContent align="start" className="w-48 p-2 md:hidden">
                 <NavigationMenu className="max-w-none *:w-full">
-                  <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
+                  <NavigationMenuList className="flex-col items-start gap-1 md:gap-2">
                     {navigationLinks.map((link) => {
                       if (
                         link.role !== "PUBLIC" &&
@@ -103,17 +107,37 @@ export default function Navbar() {
                         </NavigationMenuItem>
                       );
                     })}
+
+                    {/* Mobile Solutions Mega Menu simplified */}
+                    <div className="border-t pt-2 mt-2">
+                      <p className="font-semibold mb-1">Solutions</p>
+                      <Link to="/solutions/security" className="block py-1">
+                        🔒 Security
+                      </Link>
+                      <Link to="/solutions/payments" className="block py-1">
+                        💳 Payments
+                      </Link>
+                      <Link to="/solutions/transfers" className="block py-1">
+                        🌍 Transfers
+                      </Link>
+                      <Link to="/solutions/business" className="block py-1">
+                        👨‍💼 Business
+                      </Link>
+                      <Link to="/solutions/analytics" className="block py-1">
+                        📊 Analytics
+                      </Link>
+                    </div>
                   </NavigationMenuList>
                 </NavigationMenu>
               </PopoverContent>
             </Popover>
           </div>
-          {/* Main nav */}
+
+          {/* Main nav desktop */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
+            <Link to="/" className="text-primary hover:text-primary/90">
               <Logo />
-            </a>
-            {/* Navigation menu */}
+            </Link>
             <NavigationMenu className="h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link) => {
@@ -132,10 +156,47 @@ export default function Navbar() {
                     </NavigationMenuItem>
                   );
                 })}
+
+                {/* Solutions Mega Menu */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent">
+                    Resources
+                  </NavigationMenuTrigger>
+                  {/* <NavigationMenuContent className="grid grid-cols-2 gap-6 p-6 w-full bg-background shadow-md rounded-md"> */}
+                  <NavigationMenuContent className="bg-background shadow-md rounded-md p-3 min-w-[200px]">
+                    <ul className="flex flex-col gap-2">
+                      <li>
+                        <Link
+                          to="/resources/case-studies"
+                          className="block hover:text-primary"
+                        >
+                          📚 Case Studies
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/resources/webinars"
+                          className="block hover:text-primary"
+                        >
+                          🎥 Webinars
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/resources/community"
+                          className="block hover:text-primary"
+                        >
+                          🌐 Community
+                        </Link>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </div>
         </div>
+
         {/* Right side */}
         <div className="flex items-center gap-2">
           {data?.data?.email && (

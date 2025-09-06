@@ -15,6 +15,7 @@ import type { TRole } from "@/types";
 import Unauthorized from "@/pages/Unauthorized";
 import Contact from "@/pages/Contact";
 import Pricing from "@/pages/Pricing";
+import Features from "@/pages/Features";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "pricing",
         Component: Pricing,
+      },
+      {
+        path: "features",
+        Component: Features,
       },
     ],
   },
