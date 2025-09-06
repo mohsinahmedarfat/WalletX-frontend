@@ -1,36 +1,9 @@
-
 import { Card, CardContent } from "@/components/ui/card";
-import { ShieldCheck, BarChart, Globe, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeaturesSection from "@/components/modules/home/FeaturesSection";
 import { Link } from "react-router";
-
-const extraFeatures = [
-  {
-    icon: <ShieldCheck className="w-10 h-10 text-primary" />,
-    title: "Advanced Security",
-    description:
-      "Multi-factor authentication, encryption, and fraud detection to keep your account and transactions safe.",
-  },
-  {
-    icon: <BarChart className="w-10 h-10 text-primary" />,
-    title: "Real-Time Analytics",
-    description:
-      "Track your spending, transfers, and earnings with real-time charts and insights.",
-  },
-  {
-    icon: <Globe className="w-10 h-10 text-primary" />,
-    title: "Global Reach",
-    description:
-      "Send and receive money across borders with minimal fees and maximum reliability.",
-  },
-  {
-    icon: <CreditCard className="w-10 h-10 text-primary" />,
-    title: "Multiple Payment Options",
-    description:
-      "Link your bank accounts, cards, and digital wallets for seamless transactions.",
-  },
-];
+import { extraFeatures } from "@/constants/extraFeatures";
+import type { Feature } from "@/types";
 
 const Features = () => {
   return (
@@ -55,18 +28,20 @@ const Features = () => {
         </p>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {extraFeatures.map((feature, index) => (
-            <Card
-              key={index}
-              className="border border-muted shadow-sm hover:shadow-md transition"
-            >
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+          {extraFeatures.map((feature: Feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition">
+                <CardContent className="p-6 flex flex-col items-center text-center">
+                  <div className="mb-4">
+                    <Icon className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </section>
 

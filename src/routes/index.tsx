@@ -16,6 +16,9 @@ import Unauthorized from "@/pages/Unauthorized";
 import Contact from "@/pages/Contact";
 import Pricing from "@/pages/Pricing";
 import Features from "@/pages/Features";
+import Services from "@/pages/Services";
+import BlogPost from "@/pages/BlogPost";
+import Blogs from "@/pages/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +44,18 @@ const router = createBrowserRouter([
       {
         path: "features",
         Component: Features,
+      },
+      {
+        path: "services",
+        Component: Services,
+      },
+      {
+        path: "blogs",
+        Component: withAuth(Blogs),
+      },
+      {
+        path: "blog/:id",
+        Component: withAuth(BlogPost),
       },
     ],
   },

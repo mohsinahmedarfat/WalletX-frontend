@@ -70,7 +70,7 @@ const About = () => {
           <Card className="rounded-2xl shadow-sm">
             <CardContent className="p-6 text-center">
               <img
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://i.pravatar.cc/100?img=4"
                 alt="Team member"
                 className="rounded-full w-24 h-24 mx-auto mb-4"
               />
@@ -82,7 +82,7 @@ const About = () => {
           <Card className="rounded-2xl shadow-sm">
             <CardContent className="p-6 text-center">
               <img
-                src="https://plus.unsplash.com/premium_photo-1683140840845-073fa9638261?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://i.pravatar.cc/100?img=5"
                 alt="Team member"
                 className="rounded-full w-24 h-24 mx-auto mb-4"
               />
@@ -94,7 +94,7 @@ const About = () => {
           <Card className="rounded-2xl shadow-sm">
             <CardContent className="p-6 text-center">
               <img
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://i.pravatar.cc/100?img=7"
                 alt="Team member"
                 className="rounded-full w-24 h-24 mx-auto mb-4"
               />
