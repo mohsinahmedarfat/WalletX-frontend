@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router";
 
@@ -74,6 +75,12 @@ const BlogSection = () => {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      <div className="text-center mt-10">
+        <Link to="/blogs">
+          <Button size="lg">Show More Blogs</Button>
+        </Link>
       </div>
     </section>
   );

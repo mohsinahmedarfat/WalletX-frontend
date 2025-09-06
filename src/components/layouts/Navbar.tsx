@@ -30,6 +30,7 @@ const navigationLinks = [
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/features", label: "Features", role: "PUBLIC" },
   { href: "/services", label: "Services", role: "PUBLIC" },
+  { href: "/blogs", label: "Blogs", role: "PUBLIC" },
 
   // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
@@ -162,7 +163,6 @@ export default function Navbar() {
                   <NavigationMenuTrigger className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent">
                     Resources
                   </NavigationMenuTrigger>
-                  {/* <NavigationMenuContent className="grid grid-cols-2 gap-6 p-6 w-full bg-background shadow-md rounded-md"> */}
                   <NavigationMenuContent className="bg-background shadow-md rounded-md p-3 min-w-[200px]">
                     <ul className="flex flex-col gap-2">
                       <li>

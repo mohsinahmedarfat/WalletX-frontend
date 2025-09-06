@@ -17,6 +17,8 @@ import Contact from "@/pages/Contact";
 import Pricing from "@/pages/Pricing";
 import Features from "@/pages/Features";
 import Services from "@/pages/Services";
+import BlogPost from "@/pages/BlogPost";
+import Blogs from "@/pages/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: "services",
         Component: Services,
+      },
+      {
+        path: "blogs",
+        Component: Blogs,
+      },
+      {
+        path: "blog/:id",
+        Component: BlogPost,
       },
     ],
   },
