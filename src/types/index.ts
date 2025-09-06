@@ -27,7 +27,7 @@ export interface IUser {
   isBlocked: boolean;
 }
 
-export type TTransactionType = "TOP_UP" | "WITHDRAW" | "SEND"
+export type TTransactionType = "TOP_UP" | "WITHDRAW" | "SEND";
 
 export interface ITransaction {
   _id?: string;
@@ -39,7 +39,7 @@ export interface ITransaction {
   description?: string;
 }
 
-export type IWalletStatus = "ACTIVE" | "BLOCKED"
+export type IWalletStatus = "ACTIVE" | "BLOCKED";
 
 export interface IWallet {
   _id?: string;
@@ -50,11 +50,15 @@ export interface IWallet {
   description?: string;
 }
 
-
-
 export type Service = {
   title: string;
   description: string;
   category: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>; // store the component type
+};
+
+export type Feature = {
+  title: string;
+  description: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 };

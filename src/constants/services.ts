@@ -1,5 +1,5 @@
 import type { Service } from "@/types";
-import { Briefcase, Zap, Shield, Users } from "lucide-react";
+import { Briefcase, Zap, Shield, Users, Globe, CreditCard, PieChart } from "lucide-react";
 
 export const services: Service[] = [
   {
@@ -34,8 +34,33 @@ export const services: Service[] = [
     title: "Analytics Dashboard",
     description: "Track your transactions, balances, and insights in real time.",
     category: "Analytics",
-    icon: Zap,
+    icon: PieChart,
+  },
+  {
+    title: "Global Transfers",
+    description: "Send money worldwide with minimal fees and reliable processing.",
+    category: "Payments",
+    icon: Globe,
+  },
+  {
+    title: "Multiple Payment Options",
+    description:
+      "Connect your bank accounts, cards, and digital wallets for seamless transactions.",
+    category: "Payments",
+    icon: CreditCard,
+  },
+  {
+    title: "Business Insights",
+    description: "Get detailed reports and actionable insights for smarter decision-making.",
+    category: "Analytics",
+    icon: PieChart,
   },
 ];
 
-export const categories = ["All", "Business", "Payments", "Security", "Analytics"];
+export const categories = [
+  "All",
+  "Business",
+  "Payments",
+  "Security",
+  "Analytics",
+];
