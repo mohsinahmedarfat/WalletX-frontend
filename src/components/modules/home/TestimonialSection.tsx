@@ -36,7 +36,7 @@ const TestimonialSection = () => {
 
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((testimonial, index) => (
-          <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition">
+          <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition hover:bg-primary/10">
             <CardContent className="flex flex-col items-center text-center p-6">
               <img
                 src={testimonial.avatar}

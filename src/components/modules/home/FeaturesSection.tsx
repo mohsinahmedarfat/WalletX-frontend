@@ -39,7 +39,7 @@ const FeaturesSection = () => {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((feature, index) => (
-          <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition">
+          <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition hover:bg-primary/10">
             <CardContent className="p-6 flex flex-col items-center text-center">
               <div className="mb-4">{feature.icon}</div>
               <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
