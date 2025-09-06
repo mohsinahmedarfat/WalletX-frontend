@@ -51,11 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "blogs",
-        Component: Blogs,
+        Component: withAuth(Blogs),
       },
       {
         path: "blog/:id",
-        Component: BlogPost,
+        Component: withAuth(BlogPost),
       },
     ],
   },
