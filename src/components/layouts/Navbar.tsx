@@ -29,7 +29,7 @@ const navigationLinks = [
   { href: "/pricing", label: "Pricing", role: "PUBLIC" },
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/features", label: "Features", role: "PUBLIC" },
-  { href: "/support", label: "Support", role: "PUBLIC" },
+  { href: "/services", label: "Services", role: "PUBLIC" },
 
   // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
