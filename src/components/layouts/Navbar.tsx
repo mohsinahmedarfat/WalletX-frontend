@@ -1,3 +1,10 @@
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,8 +12,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   Popover,
@@ -22,16 +27,16 @@ import {
 import { useAppDispatch } from "@/redux/hook";
 import { Link, useLocation } from "react-router";
 import { ModeToggle } from "../mode-toggle";
+import { ChevronDown } from "lucide-react";
 
 // Navigation links (6+)
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/pricing", label: "Pricing", role: "PUBLIC" },
-  { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/features", label: "Features", role: "PUBLIC" },
   { href: "/services", label: "Services", role: "PUBLIC" },
-  { href: "/blogs", label: "Blogs", role: "PUBLIC" },
+  { href: "/pricing", label: "Pricing", role: "PUBLIC" },
+  { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
 
   // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
@@ -140,7 +145,7 @@ export default function Navbar() {
             <Link to="/" className="text-primary hover:text-primary/90">
               <Logo />
             </Link>
-            <NavigationMenu className="h-full *:h-full max-md:hidden">
+            <NavigationMenu className="relative h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link) => {
                   if (link.role !== "PUBLIC" && link.role !== data?.data?.role)
@@ -161,37 +166,49 @@ export default function Navbar() {
 
                 {/* Solutions Mega Menu */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent">
-                    Resources
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="bg-background shadow-md rounded-md p-3 min-w-[200px]">
-                    <ul className="flex flex-col gap-2">
-                      <li>
-                        <Link
-                          to="/resources/case-studies"
-                          className="block hover:text-primary"
-                        >
-                          📚 Case Studies
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/resources/webinars"
-                          className="block hover:text-primary"
-                        >
-                          🎥 Webinars
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/resources/community"
-                          className="block hover:text-primary"
-                        >
-                          🌐 Community
-                        </Link>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
+                  <div className="flex items-center">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="group ml-2 flex items-center gap-1 text-sm text-muted-foreground hover:text-primary border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent no-active">
+                          Resources
+                          <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        </button>
+                      </DropdownMenuTrigger>
+
+                      <DropdownMenuContent
+                        align="start"
+                        sideOffset={6}
+                        className="min-w-[200px] bg-background shadow-md rounded-md p-2 z-50"
+                      >
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/resources/blogs"
+                            className="block w-full"
+                          >
+                            Blogs
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/resources/case-studies"
+                            className="block w-full"
+                          >
+                            Case Studies
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/resources/webinars"
+                            className="block w-full"
+                          >
+                            Webinars
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
