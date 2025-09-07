@@ -1,21 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAllUsersQuery } from "@/redux/feature/auth/auth.api";
 import { useAllTransactionsQuery } from "@/redux/feature/transaction/transaction.api";
 import type { ITransaction, IUser } from "@/types";
 import { Bar, Pie } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { useNavigate } from "react-router";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
 // Skeleton for loading state
 const SkeletonRow = () => (
@@ -29,27 +46,28 @@ const SkeletonRow = () => (
 );
 
 const AdminAnalytics = () => {
-
   // Fetch data
   const { data: users, isLoading: usersLoading } = useAllUsersQuery(undefined);
-  const { data: allUsers, isLoading: agentsLoading } = useAllUsersQuery(undefined);
-  const { data: transactions, isLoading: txLoading } = useAllTransactionsQuery(undefined);
+  const { data: allUsers, isLoading: agentsLoading } =
+    useAllUsersQuery(undefined);
+  const { data: transactions, isLoading: txLoading } =
+    useAllTransactionsQuery(undefined);
 
   // Derived values
   const agents = allUsers?.filter((user: IUser) => user.role === "AGENT") || [];
   const totalUsers = users?.length ?? 0;
   const totalAgents = agents?.length ?? 0;
   const transactionCount = transactions?.length ?? 0;
-  const transactionVolume = transactions?.reduce((sum: number, tx: any) => sum + (tx.amount || 0), 0) ?? 0;
+  const transactionVolume =
+    transactions?.reduce((sum: number, tx: any) => sum + (tx.amount || 0), 0) ??
+    0;
 
   // Users by role for Pie Chart
-  const roleCounts = users?.reduce(
-    (acc: Record<string, number>, user: IUser) => {
+  const roleCounts =
+    users?.reduce((acc: Record<string, number>, user: IUser) => {
       acc[user.role] = (acc[user.role] || 0) + 1;
       return acc;
-    },
-    {}
-  ) || {};
+    }, {}) || {};
 
   const pieData = {
     labels: Object.keys(roleCounts),
@@ -80,13 +98,25 @@ const AdminAnalytics = () => {
   };
 
   // Card component
-  const StatCard = ({ title, value, loading }: { title: string; value: string | number; loading: boolean }) => (
+  const StatCard = ({
+    title,
+    value,
+    loading,
+  }: {
+    title: string;
+    value: string | number;
+    loading: boolean;
+  }) => (
     <Card className="shadow-md">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        {loading ? <Skeleton className="h-8 w-24" /> : <p className="text-2xl font-bold">{value}</p>}
+        {loading ? (
+          <Skeleton className="h-8 w-24" />
+        ) : (
+          <p className="text-2xl font-bold">{value}</p>
+        )}
       </CardContent>
     </Card>
   );
@@ -94,7 +124,8 @@ const AdminAnalytics = () => {
   const navigate = useNavigate();
 
   // Show last 5 transactions
-  const recentTransactions = transactions.slice(-5).reverse();
+  const recentTransactions = transactions?.slice(-5).reverse();
+  console.log("recentTransactions", recentTransactions);
 
   return (
     <div className="container mx-auto p-6 space-y-8">
@@ -102,10 +133,26 @@ const AdminAnalytics = () => {
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Users" value={totalUsers} loading={usersLoading} />
-        <StatCard title="Total Agents" value={totalAgents} loading={agentsLoading} />
-        <StatCard title="Transactions" value={transactionCount} loading={txLoading} />
-        <StatCard title="Transaction Volume" value={`$${transactionVolume}`} loading={txLoading} />
+        <StatCard
+          title="Total Users"
+          value={totalUsers}
+          loading={usersLoading}
+        />
+        <StatCard
+          title="Total Agents"
+          value={totalAgents}
+          loading={agentsLoading}
+        />
+        <StatCard
+          title="Transactions"
+          value={transactionCount}
+          loading={txLoading}
+        />
+        <StatCard
+          title="Transaction Volume"
+          value={`$${transactionVolume}`}
+          loading={txLoading}
+        />
       </div>
 
       {/* Charts */}
@@ -115,7 +162,11 @@ const AdminAnalytics = () => {
             <CardTitle>Transactions per Day</CardTitle>
           </CardHeader>
           <CardContent>
-            {txLoading ? <Skeleton className="h-64 w-full" /> : <Bar data={barData} />}
+            {txLoading ? (
+              <Skeleton className="h-64 w-full" />
+            ) : (
+              <Bar data={barData} />
+            )}
           </CardContent>
         </Card>
 
@@ -124,93 +175,74 @@ const AdminAnalytics = () => {
             <CardTitle>Users by Role</CardTitle>
           </CardHeader>
           <CardContent>
-            {usersLoading ? <Skeleton className="h-64 w-full" /> : <Pie data={pieData} />}
+            {usersLoading ? (
+              <Skeleton className="h-64 w-full" />
+            ) : (
+              <div className="w-64 h-64 mx-auto">
+                <Pie data={pieData} />
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
 
       {/* Transactions Table */}
-      {/* <Card className="shadow-md overflow-x-auto">
-        <CardHeader>
-          <CardTitle>Recent Transactions</CardTitle>
+      <Card>
+        <CardHeader className="flex flex-col md:flex-row justify-between items-center">
+          <CardTitle className="text-xl font-bold">
+            Recent Transactions
+          </CardTitle>
+          <Button size="sm" onClick={() => navigate("/admin/transactions")}>
+            View All Transactions
+          </Button>
         </CardHeader>
         <CardContent>
-          {txLoading ? (
-            <Skeleton className="h-64 w-full" />
-          ) : (
-            <table className="w-full table-auto border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-4 py-2 text-left">ID</th>
-                  <th className="px-4 py-2 text-left">User</th>
-                  <th className="px-4 py-2 text-left">Amount</th>
-                  <th className="px-4 py-2 text-left">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions?.slice(0, 10).map((tx: any) => (
-                  <tr key={tx.id} className="border-b">
-                    <td className="px-4 py-2">{tx.id}</td>
-                    <td className="px-4 py-2">{tx.user?.email}</td>
-                    <td className="px-4 py-2">${tx.amount}</td>
-                    <td className="px-4 py-2">{new Date(tx.createdAt).toLocaleDateString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </CardContent>
-      </Card> */}
-      <Card>
-      <CardHeader className="flex justify-between items-center">
-        <CardTitle className="text-xl font-bold">Recent Transactions</CardTitle>
-        <Button size="sm" onClick={() => navigate("/admin/transactions")}>
-          View All Transactions
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <div className="border border-muted rounded-md">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Sl. No.</TableHead>
-                <TableHead>Initiator</TableHead>
-                <TableHead>Recipient</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Date/Time</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {txLoading
-                ? [...Array(5)].map((_, idx) => <SkeletonRow key={idx} />)
-                : recentTransactions.map((tx: ITransaction, index: number) => (
-                    <TableRow className="*:text-left" key={tx._id}>
-                      <TableCell className="font-medium">{index + 1}</TableCell>
-                      <TableCell>{tx.initiator?.email}</TableCell>
-                      <TableCell>{tx.recipient?.email}</TableCell>
-                      <TableCell>{tx.type}</TableCell>
-                      <TableCell>${tx.amount}</TableCell>
-                      <TableCell>
-                        {new Date(tx.createdAt).toLocaleString(undefined, {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              {!txLoading && recentTransactions.length === 0 && (
+          <div className="border border-muted rounded-md">
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-4">
-                    No recent transactions
-                  </TableCell>
+                  <TableHead>Sl. No.</TableHead>
+                  <TableHead>Initiator</TableHead>
+                  <TableHead>Recipient</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Date/Time</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+              </TableHeader>
+              <TableBody>
+                {txLoading
+                  ? [...Array(5)].map((_, idx) => <SkeletonRow key={idx} />)
+                  : recentTransactions.map(
+                      (tx: ITransaction, index: number) => (
+                        <TableRow className="*:text-left" key={tx._id}>
+                          <TableCell className="font-medium">
+                            {index + 1}
+                          </TableCell>
+                          <TableCell>{tx.initiator?.email}</TableCell>
+                          <TableCell>{tx.recipient?.email}</TableCell>
+                          <TableCell>{tx.type}</TableCell>
+                          <TableCell>${tx.amount}</TableCell>
+                          <TableCell>
+                            {new Date(tx.createdAt).toLocaleString(undefined, {
+                              dateStyle: "medium",
+                              timeStyle: "short",
+                            })}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    )}
+                {!txLoading && recentTransactions.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-4">
+                      No recent transactions
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
