@@ -21,6 +21,7 @@ import {
 } from "@/redux/feature/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { Link, useLocation } from "react-router";
+import { ModeToggle } from "../mode-toggle";
 
 // Navigation links (6+)
 const navigationLinks = [
@@ -199,6 +200,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
+          <ModeToggle />
           {data?.data?.email && (
             <Button onClick={handleLogout} className="text-sm">
               Logout
