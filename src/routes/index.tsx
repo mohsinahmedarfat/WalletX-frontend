@@ -19,6 +19,8 @@ import Features from "@/pages/Features";
 import Services from "@/pages/Services";
 import BlogPost from "@/pages/BlogPost";
 import Blogs from "@/pages/Blogs";
+import Webinars from "@/pages/Webinars";
+import CaseStudies from "@/pages/CaseStudies";
 
 const router = createBrowserRouter([
   {
@@ -50,12 +52,20 @@ const router = createBrowserRouter([
         Component: Services,
       },
       {
-        path: "blogs",
+        path: "resources/blogs",
         Component: withAuth(Blogs),
       },
       {
-        path: "blog/:id",
+        path: "resources/blog/:id",
         Component: withAuth(BlogPost),
+      },
+      {
+        path: "resources/case-studies",
+        Component: withAuth(CaseStudies),
+      },
+      {
+        path: "resources/webinars",
+        Component: withAuth(Webinars),
       },
     ],
   },
