@@ -35,12 +35,30 @@ export function LoginForm({
         navigate("/");
       }
     } catch (err: any) {
-      console.error(err);
+      console.error("error from login form", err);
 
       if (err.status === 401) {
         toast.error("Your account is not verified");
         navigate("/verify", { state: data.email }); // save email in navigate state to catch the email in verify page
       }
+      
+      if (err.data?.message === "Email does not exist!") {
+        toast.error("Email does not exist! Please try again.");
+      }
+      if (err.data?.message === "Incorrect password!") {
+        toast.error("Incorrect password! Please try again.");
+      }
+    }
+  };
+
+    // 👇 Demo credentials
+  const handleDemoLogin = (role: "agent" | "admin") => {
+    if (role === "agent") {
+      form.setValue("email", "agent@gmail.com");
+      form.setValue("password", "Abc123@#");
+    } else {
+      form.setValue("email", "admin@gmail.com");
+      form.setValue("password", "Abc123@#");
     }
   };
 
@@ -97,6 +115,26 @@ export function LoginForm({
             </Button>
           </form>
         </Form>
+
+        {/* 👇 Demo buttons */}
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-1/2"
+            onClick={() => handleDemoLogin("agent")}
+          >
+            Demo Agent
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="w-1/2"
+            onClick={() => handleDemoLogin("admin")}
+          >
+            Demo Admin
+          </Button>
+        </div>
 
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">

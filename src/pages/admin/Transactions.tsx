@@ -23,16 +23,16 @@ const SkeletonRow = () => (
 );
 
 const Transactions = () => {
-  const { data: transactions = [], isLoading } = useAllTransactionsQuery(undefined);
+  const { data: transactions = [], isLoading } =
+    useAllTransactionsQuery(undefined);
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
 
   const totalPages = Math.ceil(transactions.length / pageSize);
-  const paginatedTransactions = transactions.slice(
-    (page - 1) * pageSize,
-    page * pageSize
-  );
+  const paginatedTransactions = [...transactions] // create a shallow copy
+  .reverse() // newest first
+  .slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <div>
@@ -64,10 +64,13 @@ const Transactions = () => {
                       <TableCell>{transaction.type}</TableCell>
                       <TableCell>{transaction.amount}</TableCell>
                       <TableCell>
-                        {new Date(transaction.createdAt).toLocaleString(undefined, {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })}
+                        {new Date(transaction.createdAt).toLocaleString(
+                          undefined,
+                          {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                          }
+                        )}
                       </TableCell>
                     </TableRow>
                   )

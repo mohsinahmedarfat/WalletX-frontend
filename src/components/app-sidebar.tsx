@@ -31,6 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <Logo />
         </Link>
       </SidebarHeader>
+      
       <SidebarContent>
         {data.navMain.map((group) => (
           <SidebarGroup key={group.title}>
