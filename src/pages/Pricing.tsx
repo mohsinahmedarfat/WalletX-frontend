@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const plans = [
   {
@@ -60,7 +59,7 @@ export default function Pricing() {
         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
           Choose the plan that fits your needs. No hidden fees, cancel anytime.
         </p>
-        <Button size="lg">Start Free Trial</Button>
+        {/* <Button size="lg">Start Free Trial</Button> */}
       </div>
 
       {/* Pricing Cards */}
@@ -85,12 +84,12 @@ export default function Pricing() {
                   <li key={i}>✅ {feature}</li>
                 ))}
               </ul>
-              <Button
+              {/* <Button
                 variant={plan.highlighted ? "default" : "outline"}
                 className="w-full"
               >
                 Choose {plan.name}
-              </Button>
+              </Button> */}
             </CardContent>
           </Card>
         ))}
