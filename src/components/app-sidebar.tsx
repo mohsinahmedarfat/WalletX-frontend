@@ -15,6 +15,7 @@ import {
 import Logo from "@/assets/icons/Logo";
 import { useUserInfoQuery } from "@/redux/feature/auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
+import { ModeToggle } from "./mode-toggle";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useUserInfoQuery(undefined);
@@ -26,10 +27,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="justify-between border-b">
         <Link to="/">
           <Logo />
         </Link>
+        <ModeToggle />
       </SidebarHeader>
       
       <SidebarContent>
