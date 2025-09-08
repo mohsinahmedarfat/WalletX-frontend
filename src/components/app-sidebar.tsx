@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -13,13 +14,26 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Logo from "@/assets/icons/Logo";
-import { useUserInfoQuery } from "@/redux/feature/auth/auth.api";
+import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/feature/auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { ModeToggle } from "./mode-toggle";
+import { LogOut } from "lucide-react";
+import { Button } from "./ui/button";
+import { useAppDispatch } from "@/redux/hook";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useUserInfoQuery(undefined);
   const location = useLocation();
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    const res = await logout(undefined);
+    dispatch(authApi.util.resetApiState());
+    navigate("/")
+    console.log("res", res);
+  };
 
   const data = {
     navMain: getSidebarItems(userData?.data?.role),
@@ -33,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
         <ModeToggle />
       </SidebarHeader>
-      
+
       <SidebarContent>
         {data.navMain.map((group) => (
           <SidebarGroup key={group.title}>
@@ -47,7 +61,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         asChild
                         className={
-                          isActive ? "bg-primary text-white rounded-md" : "hover:bg-primary-foreground rounded-md"
+                          isActive
+                            ? "bg-primary text-white rounded-md"
+                            : "hover:bg-primary-foreground rounded-md"
                         }
                       >
                         <Link to={item.url}>{item.title}</Link>
@@ -60,6 +76,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroup>
         ))}
       </SidebarContent>
+      <SidebarFooter className="border-t">
+        <Button
+          className="ml-auto"
+          onClick={handleLogout}
+          variant="outline"
+          size="icon"
+        >
+          <LogOut />
+        </Button>
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
