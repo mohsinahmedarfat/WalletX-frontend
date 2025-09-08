@@ -4,7 +4,7 @@ import { features } from "@/constants/features";
 import type { Feature } from "@/types";
 import { Link } from "react-router";
 
-const FeaturesSection = () => {
+const FeaturesSection = ({ showButton = true }) => {
   return (
     <section className="container mx-auto px-4 py-16">
       <h2 className="text-3xl font-bold text-center mb-6">Features</h2>
@@ -16,24 +16,31 @@ const FeaturesSection = () => {
         {features.map((feature: Feature, index: number) => {
           const Icon = feature.icon;
           return (
-            <Card key={index} className="border border-muted shadow-sm hover:shadow-md transition hover:bg-primary/10">
+            <Card
+              key={index}
+              className="border border-muted shadow-sm hover:shadow-md transition hover:bg-primary/10"
+            >
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4">
                   <Icon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
+                <p className="text-muted-foreground text-sm">
+                  {feature.description}
+                </p>
               </CardContent>
             </Card>
           );
         })}
       </div>
 
-      <div className="text-center mt-10">
-        <Link to="/features">
-          <Button size="lg">See All Features</Button>
-        </Link>
-      </div>
+      {showButton && (
+        <div className="text-center mt-10">
+          <Link to="/features">
+            <Button size="lg">See All Features</Button>
+          </Link>
+        </div>
+      )}
     </section>
   );
 };
