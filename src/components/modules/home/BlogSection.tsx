@@ -67,7 +67,7 @@ const BlogSection = () => {
                 <span>By {post.author}</span>
               </div>
               <Link
-                to={`/blog/${post.id}`}
+                to={`/resources/blog/${post.id}`}
                 className="block mt-4 text-primary font-medium hover:underline"
               >
                 Read More →
@@ -78,7 +78,7 @@ const BlogSection = () => {
       </div>
 
       <div className="text-center mt-10">
-        <Link to="/blogs">
+        <Link to="/resources/blogs">
           <Button size="lg">Show More Blogs</Button>
         </Link>
       </div>

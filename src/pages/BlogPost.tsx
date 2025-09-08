@@ -34,7 +34,7 @@ const BlogPost = () => {
         </CardContent>
       </Card>
 
-      <Link to="/blogs" className="mt-8 inline-block text-primary hover:underline">
+      <Link to="/resources/blogs" className="mt-8 inline-block text-primary hover:underline">
         ← Back to Blog
       </Link>
     </div>
