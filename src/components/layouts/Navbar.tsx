@@ -115,24 +115,49 @@ export default function Navbar() {
                       );
                     })}
 
-                    {/* Mobile Solutions Mega Menu simplified */}
-                    <div className="border-t pt-2 mt-2">
-                      <p className="font-semibold mb-1">Solutions</p>
-                      <Link to="/solutions/security" className="block py-1">
-                        🔒 Security
-                      </Link>
-                      <Link to="/solutions/payments" className="block py-1">
-                        💳 Payments
-                      </Link>
-                      <Link to="/solutions/transfers" className="block py-1">
-                        🌍 Transfers
-                      </Link>
-                      <Link to="/solutions/business" className="block py-1">
-                        👨‍💼 Business
-                      </Link>
-                      <Link to="/solutions/analytics" className="block py-1">
-                        📊 Analytics
-                      </Link>
+                    {/* Mobile dropdown menu for Resources */}
+                    <div className="w-full">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button className="flex w-full items-center justify-between py-1.5 px-2 text-left text-sm font-medium hover:text-primary">
+                            Resources
+                            <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                          </button>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent
+                          align="start"
+                          sideOffset={6}
+                          className="min-w-[200px] bg-background shadow-md rounded-md p-2 z-50"
+                        >
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/resources/blogs"
+                              className="block w-full"
+                            >
+                              Blogs
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/resources/case-studies"
+                              className="block w-full"
+                            >
+                              Case Studies
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/resources/webinars"
+                              className="block w-full"
+                            >
+                              Webinars
+                            </Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </NavigationMenuList>
                 </NavigationMenu>
@@ -181,10 +206,7 @@ export default function Navbar() {
                         className="min-w-[200px] bg-background shadow-md rounded-md p-2 z-50"
                       >
                         <DropdownMenuItem asChild>
-                          <Link
-                            to="/resources/blogs"
-                            className="block w-full"
-                          >
+                          <Link to="/resources/blogs" className="block w-full">
                             Blogs
                           </Link>
                         </DropdownMenuItem>
@@ -219,7 +241,11 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <ModeToggle />
           {data?.data?.email && (
-            <Button variant="secondary" onClick={handleLogout} className="text-sm">
+            <Button
+              variant="secondary"
+              onClick={handleLogout}
+              className="text-sm"
+            >
               Logout
             </Button>
           )}
