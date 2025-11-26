@@ -24,6 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useWalletInfoQuery } from "@/redux/feature/wallet/wallet.api";
 
 ChartJS.register(
   CategoryScale,
@@ -122,6 +123,8 @@ const AdminAnalytics = () => {
   );
 
   const navigate = useNavigate();
+  const { data: wallet, isLoading: walletLoading } =
+    useWalletInfoQuery(undefined);
 
   // Show last 5 transactions
   const recentTransactions = transactions?.slice(-5).reverse();
@@ -130,6 +133,24 @@ const AdminAnalytics = () => {
   return (
     <div className="container mx-auto p-6 space-y-8">
       <h1 className="text-2xl font-bold mb-6">Admin Analytics Overview</h1>
+
+      {/* Wallet Overview */}
+      <Card className="bg-primary/5">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold">Wallet Overview</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            {walletLoading ? (
+              <div className="h-8 w-32 bg-gray-300 rounded animate-pulse" />
+            ) : (
+              <h2 className="text-2xl font-bold">
+                Balance: ${wallet?.balance ?? 0}
+              </h2>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
