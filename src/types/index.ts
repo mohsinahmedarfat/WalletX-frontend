@@ -18,6 +18,7 @@ export interface ISidebarItem {
 }
 
 export type TRole = "SUPER_ADMIN" | "ADMIN" | "AGENT" | "USER";
+export type TApprovalStatus = "pending" | "approved" | "suspended";
 
 export interface IUser {
   _id?: string;
@@ -25,6 +26,7 @@ export interface IUser {
   email: string;
   role: TRole;
   isBlocked: boolean;
+  approvalStatus?: TApprovalStatus;
 }
 
 export type TTransactionType = "TOP_UP" | "WITHDRAW" | "SEND";
