@@ -1,3 +1,5 @@
+import AdminAddMoney from "@/pages/admin/AdminAddMoney";
+import ManageAgentRequests from "@/pages/admin/ManageAgentRequests";
 import ManageAgents from "@/pages/admin/ManageAgents";
 import ManageUsers from "@/pages/admin/ManageUsers";
 import Transactions from "@/pages/admin/Transactions";
@@ -33,6 +35,11 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Actions",
     items: [
       {
+        title: "Add Money",
+        url: "/admin/add-money",
+        component: AdminAddMoney,
+      },
+      {
         title: "Manage Users",
         url: "/admin/manage-users",
         component: ManageUsers,
@@ -41,6 +48,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         title: "Manage Agents",
         url: "/admin/manage-agents",
         component: ManageAgents,
+      },
+      {
+        title: "Manage Agent Requests",
+        url: "/admin/manage-agents-requests",
+        component: ManageAgentRequests,
       },
     ],
   },

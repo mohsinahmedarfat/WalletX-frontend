@@ -1,9 +1,9 @@
-import AddMoneyForm from "@/components/modules/agent/AddMoneyForm";
+import AddUserMoneyForm from "@/components/modules/agent/AddUserMoneyForm";
 
 const AgentAddMoney = () => {
   return (
     <div>
-      <AddMoneyForm/>
+      <AddUserMoneyForm />
     </div>
   );
 };

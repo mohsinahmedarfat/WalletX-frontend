@@ -27,9 +27,17 @@ export const walletApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["TRANSACTION", "WALLET"],
     }),
-    addMoney: builder.mutation({
+    addUserMoney: builder.mutation({
       query: ({ userEmail, amountData }) => ({
-        url: `/wallet/top-up/${userEmail}`,
+        url: `/wallet/top-up/user/${userEmail}`,
+        method: "PATCH",
+        data: amountData,
+      }),
+      invalidatesTags: ["TRANSACTION"],
+    }),
+    addAgentMoney: builder.mutation({
+      query: ({ userEmail, amountData }) => ({
+        url: `/wallet/top-up/agent/${userEmail}`,
         method: "PATCH",
         data: amountData,
       }),
@@ -70,34 +78,6 @@ export const walletApi = baseApi.injectEndpoints({
         }
       },
     }),
-
-    // blockUser: builder.mutation({
-    //   query: ({ userId, statusData }) => ({
-    //     url: `/user/status/${userId}`,
-    //     method: "PATCH",
-    //     data: statusData,
-    //   }),
-    //   invalidatesTags: ["USERS"],
-    //   async onQueryStarted(
-    //     { userId, statusData },
-    //     { dispatch, queryFulfilled }
-    //   ) {
-    //     const patchResult = dispatch(
-    //       authApi.util.updateQueryData("allUsers", undefined, (draft) => {
-    //         const user = draft.find((u: IUser) => u._id === userId);
-    //         if (user) {
-    //           user.isBlocked = statusData.isBlocked;
-    //         }
-    //       })
-    //     );
-
-    //     try {
-    //       await queryFulfilled;
-    //     } catch {
-    //       patchResult.undo();
-    //     }
-    //   },
-    // }),
   }),
 });
 
@@ -105,7 +85,8 @@ export const {
   useAllWalletsQuery,
   useWalletInfoQuery,
   useSendMoneyMutation,
-  useAddMoneyMutation,
+  useAddUserMoneyMutation,
+  useAddAgentMoneyMutation,
   useWithdrawMoneyMutation,
   useBlockWalletMutation,
 } = walletApi;
