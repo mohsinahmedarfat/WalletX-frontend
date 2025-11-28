@@ -1,24 +1,29 @@
 import { baseApi } from "@/redux/baseApi";
+import type { ITransaction } from "@/types";
 
-export const walletApi = baseApi.injectEndpoints({
+interface ITransactionResponse {
+  data: ITransaction[];
+}
+
+export const transactionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    allTransactions: builder.query({
+    allTransactions: builder.query<ITransaction[], void>({
       query: () => ({
         url: "/transaction",
         method: "GET",
       }),
-      transformResponse: (response) => response.data,
+      transformResponse: (response: ITransactionResponse) => response.data,
       providesTags: ["TRANSACTION"],
     }),
-    transactionInfo: builder.query({
+    transactionInfo: builder.query<ITransaction[], void>({
       query: () => ({
         url: "/transaction/me",
         method: "GET",
       }),
-      transformResponse: (response) => response.data,
+      transformResponse: (response: ITransactionResponse) => response.data,
       providesTags: ["TRANSACTION"],
     }),
   }),
 });
 
-export const { useAllTransactionsQuery, useTransactionInfoQuery } = walletApi;
+export const { useAllTransactionsQuery, useTransactionInfoQuery } = transactionApi;

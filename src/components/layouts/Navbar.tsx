@@ -37,6 +37,7 @@ const navigationLinks = [
   { href: "/pricing", label: "Pricing", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/notification", label: "Notification", role: "PUBLIC" },
 
   // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
@@ -49,6 +50,7 @@ export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
+  
 
   const handleLogout = async () => {
     const res = await logout(undefined);
@@ -98,6 +100,7 @@ export default function Navbar() {
                     {navigationLinks.map((link) => {
                       if (
                         link.role !== "PUBLIC" &&
+                        link.role !== "PRIVATE" &&
                         link.role !== data?.data?.role
                       )
                         return null;
@@ -173,7 +176,11 @@ export default function Navbar() {
             <NavigationMenu className="relative h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link) => {
-                  if (link.role !== "PUBLIC" && link.role !== data?.data?.role)
+                  if (
+                    link.role !== "PUBLIC" &&
+                    link.role !== "PRIVATE" &&
+                    link.role !== data?.data?.role
+                  )
                     return null;
 
                   return (

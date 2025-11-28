@@ -33,7 +33,7 @@ const AgentWithdrawMoney = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentWithdraws?.map((withdraw: ITransaction, index: string) => (
+            {recentWithdraws?.map((withdraw: ITransaction, index: number) => (
               <TableRow className="*:text-left" key={withdraw._id}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell>{withdraw.initiator?.email}</TableCell>
