@@ -21,6 +21,7 @@ import BlogPost from "@/pages/BlogPost";
 import Blogs from "@/pages/Blogs";
 import Webinars from "@/pages/Webinars";
 import CaseStudies from "@/pages/CaseStudies";
+import Notification from "@/pages/Notification";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "resources/webinars",
         Component: withAuth(Webinars),
+      },
+      {
+        path: "notification",
+        Component: withAuth(Notification),
       },
     ],
   },

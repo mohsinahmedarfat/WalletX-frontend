@@ -52,6 +52,13 @@ export interface IWallet {
   description?: string;
 }
 
+export interface INotification {
+  _id?: string;
+  user: IUser;
+  message: string;
+  createdAt: string;
+}
+
 export type Service = {
   title: string;
   description: string;

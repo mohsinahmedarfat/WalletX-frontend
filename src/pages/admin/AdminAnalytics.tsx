@@ -127,8 +127,7 @@ const AdminAnalytics = () => {
     useWalletInfoQuery(undefined);
 
   // Show last 5 transactions
-  const recentTransactions = transactions?.slice(-5).reverse();
-  console.log("recentTransactions", recentTransactions);
+  const recentTransactions: ITransaction[] = transactions?.slice(-5)?.reverse() ?? [];
 
   return (
     <div className="container mx-auto p-6 space-y-8">
