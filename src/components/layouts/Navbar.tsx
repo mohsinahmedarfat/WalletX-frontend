@@ -28,6 +28,7 @@ import { useAppDispatch } from "@/redux/hook";
 import { Link, useLocation } from "react-router";
 import { ModeToggle } from "../mode-toggle";
 import { ChevronDown } from "lucide-react";
+import { Bell } from "lucide-react";
 
 // Navigation links (6+)
 const navigationLinks = [
@@ -37,7 +38,6 @@ const navigationLinks = [
   { href: "/pricing", label: "Pricing", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/contact", label: "Contact", role: "PUBLIC" },
-  { href: "/notification", label: "Notification", role: "PUBLIC" },
 
   // Role-based dashboard routes
   { href: "/admin", label: "Dashboard", role: role.admin },
@@ -50,7 +50,6 @@ export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
-  
 
   const handleLogout = async () => {
     const res = await logout(undefined);
@@ -100,7 +99,6 @@ export default function Navbar() {
                     {navigationLinks.map((link) => {
                       if (
                         link.role !== "PUBLIC" &&
-                        link.role !== "PRIVATE" &&
                         link.role !== data?.data?.role
                       )
                         return null;
@@ -176,11 +174,7 @@ export default function Navbar() {
             <NavigationMenu className="relative h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link) => {
-                  if (
-                    link.role !== "PUBLIC" &&
-                    link.role !== "PRIVATE" &&
-                    link.role !== data?.data?.role
-                  )
+                  if (link.role !== "PUBLIC" && link.role !== data?.data?.role)
                     return null;
 
                   return (
@@ -246,6 +240,21 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
+          {data?.data?.email && (
+            <Link to="/notification">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+                aria-label="Notifications"
+              >
+                <Bell className="size-5" />
+                {/* Optional: unread badge */}
+                <span className="absolute top-2 right-2 inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+              </Button>
+            </Link>
+          )}
+
           <ModeToggle />
           {data?.data?.email && (
             <Button
